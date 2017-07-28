@@ -91,12 +91,21 @@ func BenchmarkAlgorithms(b *testing.B) {
 			b.ReportAllocs()
 
 			for i := 0; i < b.N; i++ {
-				b.StopTimer()
 				copy(items, seed)
-				b.StartTimer()
 				fn(items)
 			}
 		})
+	}
+}
+
+func BenchmarkCopy(b *testing.B) {
+	seed := getItems()
+	items := make([]int, len(seed))
+
+	b.ResetTimer()
+
+	for i := 0; i < b.N; i++ {
+		copy(items, seed)
 	}
 }
 
