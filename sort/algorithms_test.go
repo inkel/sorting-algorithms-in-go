@@ -84,11 +84,12 @@ func BenchmarkAlgorithms(b *testing.B) {
 	seed := getItems()
 	items := make([]int, len(seed))
 
-	b.ReportAllocs()
 	b.ResetTimer()
 
 	for n, fn := range suite {
 		b.Run(n, func(b *testing.B) {
+			b.ReportAllocs()
+
 			for i := 0; i < b.N; i++ {
 				b.StopTimer()
 				copy(items, seed)
